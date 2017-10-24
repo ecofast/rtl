@@ -52,6 +52,33 @@ func StrToIntDef(s string, defaultValue int) int {
 	return defaultValue
 }
 
+func FloatToStr(f float32) string {
+	return DoubleToStrPrec(float64(f), 7)
+}
+
+func DoubleToStr(f float64) string {
+	return DoubleToStrPrec(f, 16)
+}
+
+func FloatToStrPrec(f float32, prec int) string {
+	return DoubleToStrPrec(float64(f), prec)
+}
+
+func DoubleToStrPrec(f float64, prec int) string {
+	return strconv.FormatFloat(f, 'f', prec, 64)
+}
+
+func StrToFloat(s string) float32 {
+	return float32(StrToDouble(s))
+}
+
+func StrToDouble(s string) float64 {
+	if ret, err := strconv.ParseFloat(s, 64); err == nil {
+		return ret
+	}
+	panic(fmt.Sprintf("Cannot convert %s to floating-point number!", s))
+}
+
 func BytesToUInt8(bs []byte) uint8 {
 	return uint8(bs[0])
 }
