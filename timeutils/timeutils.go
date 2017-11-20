@@ -9,6 +9,23 @@ import (
 	"time"
 )
 
+const (
+	// Units of time
+	HoursPerDay = 24
+	MinsPerHour = 60
+	SecsPerMin  = 60
+	MSecsPerSec = 1000
+	MinsPerDay  = HoursPerDay * MinsPerHour
+	SecsPerDay  = MinsPerDay * SecsPerMin
+	MSecsPerDay = SecsPerDay * MSecsPerSec
+
+	// Days between 1/1/0001 and 12/31/1899
+	DateDelta = 693594
+
+	// Days between DateTime basis (12/31/1899) and Unix time_t basis (1/1/1970)
+	UnixDateDelta = 25569
+)
+
 func MilliSecondsBetween(now, then time.Time) int64 {
 	return int64(now.Sub(then) / time.Millisecond)
 }
