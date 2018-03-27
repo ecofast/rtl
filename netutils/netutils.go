@@ -46,3 +46,15 @@ func IPPortFromNetAddr(addr net.Addr) (string, uint16) {
 	s := addr.String()
 	return ipFromAddrStr(s), portFromAddrStr(s)
 }
+
+func UInt32ToIPv4(ip uint32) string {
+	return IntToStr(int((ip>>24)&0xFF)) + "." + IntToStr(int((ip>>16)&0xFF)) + "." + IntToStr(int((ip>>8)&0xFF)) + "." + IntToStr(int(ip&0xFF))
+}
+
+func IPv4ToUInt32(ip string) uint32 {
+	bs := strings.Split(ip, ".")
+	if len(bs) == 4 {
+		return uint32((StrToIntDef(bs[0], 0) << 24) | (StrToIntDef(bs[1], 0) << 16) | (StrToIntDef(bs[2], 0) << 8) | StrToIntDef(bs[3], 0))
+	}
+	return 0
+}
