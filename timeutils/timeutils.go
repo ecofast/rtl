@@ -19,6 +19,12 @@ const (
 	SecsPerDay  = MinsPerDay * SecsPerMin
 	MSecsPerDay = SecsPerDay * MSecsPerSec
 
+	DaysPerWeek        = 7
+	MonthsPerYear      = 12
+	YearsPerDecade     = 10
+	YearsPerCentury    = 100
+	YearsPerMillennium = 1000
+
 	// Days between 1/1/0001 and 12/31/1899
 	DateDelta = 693594
 
@@ -48,4 +54,44 @@ func DateToStr(dt time.Time) string {
 func TimeToStr(dt time.Time) string {
 	hour, min, sec := dt.Clock()
 	return fmt.Sprintf("%02d:%02d:%02d", hour, min, sec)
+}
+
+// DecodeDate decodes the integral (date) part of the given time.Time value
+// into its corresponding year, month, and day.
+func DecodeDate(dt time.Time) (year, month, day int) {
+	y, m, d := dt.Date()
+	return y, int(m), d
+}
+
+// DecodeTime decodes the fractional (time) part of the given TDateTime value
+// into its corresponding hour, minute and second.
+func DecodeTime(dt time.Time) (hour, min, sec int) {
+	return dt.Clock()
+}
+
+func IsLeapYear(dt time.Time) bool {
+	year := dt.Year()
+	return (year%4 == 0) && ((year%100 != 0) || (year%400 == 0))
+}
+
+func IsPM(dt time.Time) bool {
+	return dt.Hour() >= 12
+}
+
+func IsToday(dt time.Time) bool {
+	return IsSameDay(dt, time.Now())
+}
+
+func IsSameDay(dt1, dt2 time.Time) bool {
+	year1, month1, day1 := DecodeDate(dt1)
+	year2, month2, day2 := DecodeDate(dt2)
+	return (year1 == year2) && (month1 == month2) && (day1 == day2)
+}
+
+func Yesterday() time.Time {
+	return time.Now().Add(-time.Hour * HoursPerDay)
+}
+
+func Tomorrow() time.Time {
+	return time.Now().Add(time.Hour * HoursPerDay)
 }
