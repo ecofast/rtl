@@ -9,7 +9,7 @@ func init() {
 	rand.Seed(time.Now().UnixNano())
 }
 
-func FisherYatesShuffle(bs []byte) {
+func FisherYatesShuffle(bs []int) {
 	for i := len(bs) - 1; i >= 1; i-- {
 		j := rand.Intn(i + 1)
 		tmp := bs[i]
