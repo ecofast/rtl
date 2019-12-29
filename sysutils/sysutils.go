@@ -45,6 +45,10 @@ func IntToStr(i int) string {
 	return strconv.FormatInt(int64(i), 10)
 }
 
+func UIntToStr(i uint) string {
+	return strconv.FormatUint(uint64(i), 10)
+}
+
 func StrToInt(s string) int {
 	if ret, err := strconv.Atoi(s); err == nil {
 		return ret
@@ -55,6 +59,20 @@ func StrToInt(s string) int {
 func StrToIntDef(s string, defaultValue int) int {
 	if ret, err := strconv.Atoi(s); err == nil {
 		return ret
+	}
+	return defaultValue
+}
+
+func StrToUInt(s string) uint {
+	if ret, err := strconv.ParseUint(s, 10, 0); err == nil {
+		return uint(ret)
+	}
+	panic(fmt.Sprintf("Cannot convert %s to uint!", s))
+}
+
+func StrToUIntDef(s string, defaultValue uint) uint {
+	if ret, err := strconv.ParseUint(s, 10, 0); err == nil {
+		return uint(ret)
 	}
 	return defaultValue
 }
