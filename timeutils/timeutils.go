@@ -46,6 +46,12 @@ func DateTimeToStr(dt time.Time) string {
 	return fmt.Sprintf("%d-%02d-%02d %02d:%02d:%02d", year, int(month), day, hour, min, sec)
 }
 
+func DateTimeToStrSlash(dt time.Time) string {
+	year, month, day := dt.Date()
+	hour, min, sec := dt.Clock()
+	return fmt.Sprintf("%d/%02d/%02d %02d:%02d:%02d", year, int(month), day, hour, min, sec)
+}
+
 func DateToStr(dt time.Time) string {
 	year, month, day := dt.Date()
 	return fmt.Sprintf("%d-%02d-%02d", year, int(month), day)
@@ -94,4 +100,8 @@ func Yesterday() time.Time {
 
 func Tomorrow() time.Time {
 	return time.Now().Add(time.Hour * HoursPerDay)
+}
+
+func GetTickCount() int64 {
+	return time.Now().Unix()
 }
