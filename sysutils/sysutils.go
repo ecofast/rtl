@@ -20,18 +20,18 @@ func CheckError(e error) {
 	}
 }
 
-func BoolToInt(b bool) int {
-	if b {
-		return 1
-	}
-	return 0
-}
-
 func BoolToStr(b bool) string {
 	if b {
 		return "1"
 	}
 	return "0"
+}
+
+func BoolToInt(b bool) int {
+	if b {
+		return 1
+	}
+	return 0
 }
 
 func StrToBool(s string) bool {
@@ -134,6 +134,16 @@ func UInt32ToBytes(v uint32) []byte {
 
 func Int32ToBytes(v int32) []byte {
 	return UInt32ToBytes(uint32(v))
+}
+
+func UInt64ToBytes(v uint64) []byte {
+	bs := make([]byte, 8)
+	binary.LittleEndian.PutUint64(bs, v)
+	return bs
+}
+
+func Int64ToBytes(v int64) []byte {
+	return UInt64ToBytes(uint64(v))
 }
 
 func GetApplicationPath() string {
