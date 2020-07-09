@@ -188,6 +188,14 @@ func ChangeFileExt(fileName, ext string) string {
 	return fileName + ext
 }
 
+func GetFileExt(fileName string) string {
+	i := strings.LastIndex(fileName, ".")
+	if i > 0 {
+		return fileName[i:]
+	}
+	return ""
+}
+
 func StructToBytes(data interface{}) []byte {
 	var buf bytes.Buffer
 	binary.Write(&buf, binary.LittleEndian, data)
