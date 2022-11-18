@@ -147,8 +147,11 @@ func Int64ToBytes(v int64) []byte {
 }
 
 func GetApplicationPath() string {
-	path := filepath.Dir(os.Args[0])
-	return path + string(os.PathSeparator)
+	path, err := os.Executable()
+	if err != nil {		
+		return IncludeTrailingBackslash(filepath.Dir(os.Args[0]))
+	}
+	return filepath.Dir(path)
 }
 
 func DirectoryExists(path string) bool {
